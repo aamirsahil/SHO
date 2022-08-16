@@ -1,0 +1,67 @@
+/* body and html */
+body{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+/* main */
+.main{
+    height: 99vh;
+    width: 99vw;
+    border-radius: 25px;
+    overflow: hidden;
+}
+    .top, .middle, .bottom{
+        width: 100%;
+    }
+/* top */
+.top{
+    height: 20%;
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    .title{
+        font-size: 3vw;
+        font-family: 'Courier New', Courier, monospace;
+    }
+/* middle */
+.middle{
+    height: 50%;
+    background-color: azure;
+    display: flex;
+}
+    .schematic, .plot{
+        height: 100%;
+        width: 50%;
+        flex: 1;
+    }
+    #schematic{
+        height: 100%;
+        width: 100%;
+    }
+    #plot{
+        height: 100%;
+        width: 100%;
+    }
+/* bottom */
+.bottom{
+    height: 30%;
+    background-color: aquamarine;
+    display: flex;
+}
+    .equation, .controls{
+        height: 100%;
+        width: 50%;
+        flex: 1;
+    }
+    .equation{
+        background-color: rgb(74, 36, 36);
+    }
+    .controls{
+        background-color: rgb(37, 76, 109);
+    }
