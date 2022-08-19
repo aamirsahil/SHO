@@ -6,6 +6,7 @@
     <title>Index</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='toggleSwitch.css'>
 </head>
 <body>
     <!-- main screen(open) -->
@@ -29,7 +30,11 @@
                 <canvas id="schematic">
 
                 </canvas>
-                <canvas id="mySlider" title="My Slider"></canvas>
+                <!-- pause button -->
+                <label class="toggle pause">
+                    <input type="checkbox" id="pause" autocomplete="off">
+                    <span class="labels" data-on="PLAY" data-off="PAUSE"></span>
+                </label>
             </div>
             <!-- schematic(left)(close) -->
             <!-- plot(right)(open) -->
@@ -47,12 +52,96 @@
             <!-- equation(oprn) -->
             <div class="equation">
                 Equation
+                The European Union and its partners hosted
+                an international pledging marathon during May 2020.
+                The Commission registered €9.8 billion in pledges from donors worldwide during
+                the Coronavirus Global Response pledging event. This included a pledge of €1.4 billion by
+                the Commisison, to ensure the collaborative development and universal deployment of diagnostics,
+                treatments and vaccines against coronavirus.
             </div>
             <!-- equation(close) -->
             <!-- controls(open) -->
             <div class="controls">
                 <!-- sliders and switches -->
-                Controls
+                <div class="control_1">
+                    <div class="control_template">
+                        <div class="control_title">Mass</div>
+                        <div class="control_range"><input type="range" id="mass" max="10" min="1" value="5" autocomplete="off"></div>
+                        <div contenteditable="true" class="control_field" id="mass_text"></div>
+                    </div>
+                    <div class="control_template">
+                        <div class="control_title">Force constant</div>
+                        <div class="control_range"><input type="range" id="k" max="10" min="1" value="5" autocomplete="off"></div>
+                        <div contenteditable="true" class="control_field" id="k_text"></div>
+                    </div>
+                    <div class="control_template">
+                        <div class="control_title">Initial position</div>
+                        <div class="control_range"><input type="range" id="x0" max="50" min="-50" value="0" autocomplete="off"></div>
+                        <div contenteditable="true" class="control_field" id="x0_text"></div>
+                    </div>
+                </div>
+                <div class="control_2">
+                    <div class="control_template">
+                        <div class="control_title">Initial velocity</div>
+                        <div class="control_range"><input type="range" id="v0" max="5" min="-5" value="0" autocomplete="off"></div>
+                        <div contenteditable="true" class="control_field" id="v0_text"></div>
+                    </div>
+                    <div class="control_template">
+                        <div class="control_title">Time step</div>
+                        <div class="control_range"><input type="range" id="dt" max="0.1" min="0.01" value="0.01" step="0.01" autocomplete="off"></div>
+                        <div contenteditable="true" class="control_field" id="dt_text"></div>
+                    </div>
+                    <div class="control_template">
+                        <div class="control_title">Algorithm</div>
+                        <div class="control_option">
+                            <select id="algorithms" autocomplete="off">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="control_3">
+                    <div class="control_template">
+                        <div class="control_title">x-Axis</div>
+                        <div class="control_option">
+                            <select id="xAxis" autocomplete="off">
+                                <option value="pos">Position</option>
+                                <option value="time">Time</option>
+                                <option value="vel">Velocity</option>
+                                <option value="acc">Acceleration</option>
+                                <option value="KE">Kinetic Energy</option>
+                                <option value="PE">Potential Energy</option>
+                                <option value="TE">Total Energy</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control_template">
+                        <div class="control_title">y-Axis</div>
+                        <div class="control_option">
+                            <select id="yAxis" autocomplete="off">
+                                <option value="time">Time</option>
+                                <option value="pos">Position</option>
+                                <option value="vel">Velocity</option>
+                                <option value="acc">Acceleration</option>
+                                <option value="KE">Kinetic Energy</option>
+                                <option value="PE">Potential Energy</option>
+                                <option value="TE">Total Energy</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control_template">
+                        <div class="control_title">Show Analytical</div>
+                        <div class="control_switch">
+                            <label class="toggle">
+                                <input type="checkbox">
+                                <span class="labels" data-on="ON" data-off="OFF"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- controls(close) -->
         </div>
@@ -64,6 +153,7 @@
 
 <script src='schematic.js'></script>
 <script src='plot.js'></script>
+<script src='eventListeners.js'></script>
 <script src='control.js'></script>
 
 </html>

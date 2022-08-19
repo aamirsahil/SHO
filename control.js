@@ -1,54 +1,59 @@
 // event listeners and animation
-var hit_right = false;
 function start() {
+    set_text();
+    let initial_values = {
+        mass: parseFloat(document.getElementById("mass").value),
+        k: parseFloat(document.getElementById("k").value),
+        x0: parseFloat(document.getElementById("x0").value),
+        v0: parseFloat(document.getElementById("v0").value),
+    }
+    console.log(initial_values);
+    let schematic = new Schematic(initial_values);
     let id = null;
+    let dt = document.getElementById("dt").value;
+    let paused = false;
     reset(id);
-    id = setInterval(animate, 5);
-    function animate() {
-        // clear frame
-        ctx_schematic.clearRect(0, 0, canvas_schematic.width, canvas_schematic.height); 
-        // title
-        ctx_schematic.font = "15px Comic Sans MS";
-        ctx_schematic.fillStyle = "white";
-        ctx_schematic.textAlign = "center";
-        ctx_schematic.fillText("Schematic", canvas_schematic.width/2, 15);
-        // wall
-        ctx_schematic.fillStyle = "grey";
-        ctx_schematic.fillRect(wall_rect.x, wall_rect.y, wall_rect.width, wall_rect.height);
-        // ground
-        ctx_schematic.fillRect(ground_rect.x, ground_rect.y, ground_rect.width, ground_rect.height);
-        // bob
-        ctx_schematic.fillStyle = "yellow";
-        ctx_schematic.fillRect(bob_rect.x, bob_rect.y, bob_rect.width, bob_rect.height);
-        // spring
-        ctx_schematic.strokeStyle = 'blue'
-        ctx_schematic.beginPath();
-        ctx_schematic.moveTo(spring_rect.x1, spring_rect.y1);
-        for(let i=0; i<(2*no_of_spikes); i++){
-            let j = [1, 0, -1, 0];
-            let x_stride = (bob_rect.x - wall_rect.width)/2/no_of_spikes;
-            let y_stride = j[i%4]*Math.sqrt(Math.pow(full_spring_length/2/no_of_spikes, 2) - Math.pow(x_stride, 2));
-            ctx_schematic.lineTo(spring_rect.x1 + (i + 1)*x_stride, spring_rect.y1 - y_stride);
-        }
-        ctx_schematic.stroke();
-        // 
-        if((bob_rect.x - wall_rect.width) >= full_spring_length){
-            hit_right = true;
-        } 
-        if(bob_rect.x <= wall_rect.width){
-            hit_right = false;
-        }
-        if(hit_right){
-            bob_rect.x -= 1;
-        }
-        else{
-            bob_rect.x += 1;
+    id = setInterval(animate, dt*1000);
+    function animate(){
+        if(!paused){
+            schematic.clear_frame();
+            schematic.draw_background();
+            schematic.draw_bob();
+            schematic.draw_spring();
+            let omega_2 = schematic.spring.k/schematic.bob.mass;
+            schematic.bob.calculate_velocity(omega_2, dt);
+            schematic.bob.move();
         }
     }
-} 
+    // call event listeners
+    call_event_listeners(schematic, id, animate);
+    // pause simulation
+    document.getElementById("pause").addEventListener("click", () => {
+        paused = !paused;
+    });
+    // time step control
+    document.getElementById("dt").addEventListener("input", () => {
+        let dt = document.getElementById("dt").value;
+        reset(id);
+        set_text();
+        id = setInterval(animate, dt*1000);
+    });
+}
 
 function reset(id) {
     clearInterval(id);
 }
-
+function set_text(){
+    let mass = document.getElementById("mass").value;
+    let k = document.getElementById("k").value;
+    let dt = document.getElementById("dt").value;
+    let x0 = parseFloat(document.getElementById("x0").value);
+    let v0 = parseFloat(document.getElementById("v0").value);
+    
+    document.getElementById("mass_text").innerHTML = mass;
+    document.getElementById("k_text").innerHTML = k;
+    document.getElementById("dt_text").innerHTML = dt;
+    document.getElementById("x0_text").innerHTML = x0;
+    document.getElementById("v0_text").innerHTML = v0;
+}
 start();
