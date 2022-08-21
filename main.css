@@ -42,8 +42,6 @@ body{
         height: 100%;
         width: 50%;
         flex: 1;
-    }
-    .schematic{
         position: relative;
     }
     #schematic{
@@ -101,6 +99,7 @@ body{
                     /* grid-area: title; */
                     width: 100%;
                     background-color: coral;
+                    /* font-size: 1vw; */
                 }
                 .control_range{
                     /* grid-area: range; */
@@ -114,6 +113,9 @@ body{
                     width: 25%;
                     background-color: floralwhite;
                 }
+                    #dt_text:hover{
+                        cursor: no-drop;
+                    }
                 input, select, .toggle{
                     width: 75%;
                 }

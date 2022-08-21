@@ -1,3 +1,4 @@
+// bob class
 class Bob {
     constructor(mass, x0, v0){
         // pos wrt bob coordinates
@@ -27,6 +28,7 @@ class Bob {
         this.vel.vx += (-omega_2)*this.pos.x*dt;
     }
 }
+// spring class
 class Spring {
     constructor(k){
         this.no_of_spikes = 10;
@@ -48,35 +50,38 @@ class Spring {
         return vertex;
     }
 }
+// schematic class
 class Schematic {
     constructor(initial_values){
         this.canvas = document.getElementById("schematic");
         this.ctx = this.canvas.getContext("2d");
+        this.width = this.canvas.width;
+        this.height = this.canvas.height;
         this.bob = new Bob(initial_values.mass, initial_values.x0, initial_values.v0);
         this.spring = new Spring(initial_values.k);
         this.wall = {
             x0: 0, y0: 0,
-            width: this.canvas.width/10, height: this.canvas.height
+            width: this.width/10, height: this.height
         };
         this.ground = {
-            x0: this.wall.width, y0: this.canvas.height/1.5,
-            width: this.canvas.width - this.wall.width, height: this.canvas.height - this.canvas.height/1.5
+            x0: this.wall.width, y0: this.height/1.5,
+            width: this.width - this.wall.width, height: this.height - this.height/1.5
         };
     }
     // clear frame
     clear_frame(){
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); 
+        this.ctx.clearRect(0, 0, this.width, this.height); 
     }
     // draw back ground
     draw_background(){
         // background
         this.ctx.fillStyle = "black";
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillRect(0, 0, this.width, this.height);
         // title
         this.ctx.font = "15px Comic Sans MS";
         this.ctx.fillStyle = "white";
         this.ctx.textAlign = "center";
-        this.ctx.fillText("Schematic", this.canvas.width/2, 15);
+        this.ctx.fillText("Schematic", this.width/2, 15);
         // wall
         this.ctx.fillStyle = "grey";
         this.ctx.fillRect(this.wall.x0, this.wall.y0, this.wall.width, this.wall.height);
